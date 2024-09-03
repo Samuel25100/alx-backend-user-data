@@ -29,10 +29,10 @@ def stats() -> str:
 @app_views.route('/unauthorized/', strict_slashes=False)
 def unauth() -> str:
     """route for checking unauthorized request error handler"""
-    abort(401)
+    return abort(401)
 
 
 @app_views.route('/forbidden/', strict_slashes=False)
 def forbid() -> str:
     """route for checking forbidden request error handler"""
-    abort(403)
+    return abort(403)
