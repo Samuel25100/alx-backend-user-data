@@ -25,12 +25,14 @@ def stats() -> str:
     stats['users'] = User.count()
     return jsonify(stats)
 
-@app_views.route('/unauthorized', strict_slashes=False)
+
+@app_views.route('/unauthorized/', strict_slashes=False)
 def unauth():
     """route for checking unauthorized request error handler"""
     abort(401)
 
-@app_views.route('/forbidden', strict_slashes=False)
+
+@app_views.route('/forbidden/', strict_slashes=False)
 def forbid():
     """route for checking forbidden request error handler"""
     abort(403)
