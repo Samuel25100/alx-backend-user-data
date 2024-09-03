@@ -21,7 +21,7 @@ if auth:
 
 
 @app.before_request
-def auth_handler():
+def auth_handler() -> None:
     if auth:
         exc_pth = ['/api/v1/status/',
                    '/api/v1/unauthorized/',
@@ -43,10 +43,7 @@ def not_found(error) -> str:
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """Unauthorized use handler"""
-    return jsonify(
-            {
-                "error": "Unauthorized"
-            }), 401
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
