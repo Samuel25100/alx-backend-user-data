@@ -27,9 +27,9 @@ def auth_handler():
                    '/api/v1/forbidden/']
         if auth.require_auth(request.path, exc_pth):
             if auth.authorization_header(request) is None:
-                abort(401, None)
+                abort(401)
             if auth.current_user(request) is None:
-                abort(403, None)
+                abort(403)
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -40,7 +40,10 @@ def not_found(error) -> str:
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """Unauthorized use handler"""
-    return jsonify({"error": "Unauthorized"}), 401
+    return jsonify(
+            {
+                "error": "Unauthorized"
+            }), 401
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
