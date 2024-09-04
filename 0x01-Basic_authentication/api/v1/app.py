@@ -24,6 +24,7 @@ elif auth == "auth":
 
 @app.before_request
 def auth_handler() -> None:
+    """authentication status handler function"""
     if auth:
         exc_pth = ['/api/v1/status/',
                    '/api/v1/unauthorized/',
