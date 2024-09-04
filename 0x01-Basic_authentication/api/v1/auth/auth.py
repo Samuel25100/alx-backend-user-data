@@ -15,8 +15,14 @@ class Auth:
             return False
         if path == "/api/v1/status" and "/api/v1/status/" in excluded_paths:
             return False
-        else:
-            return True
+        pa = ['/status', '/stats/', '/unauthorized/', '/forbidden/', '/users/']
+        for i in excluded_paths:
+            if '*' in i:
+                expand = i.split('*')[0].split('/')[-1]
+                for j in pa:
+                    if expand in j:
+                        return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """authorized header 'Authorization' from request"""
