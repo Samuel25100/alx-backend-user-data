@@ -19,6 +19,7 @@ class Auth:
             return True
 
     def authorization_header(self, request=None) -> str:
+        """authorized header 'Authorization' from request"""
         if request is None:
             return None
         auth = request.headers.get('Authorization')
@@ -27,4 +28,5 @@ class Auth:
         return auth
 
     def current_user(self, request=None) -> TypeVar('User'):
+        """will be overload by basic_auth"""
         return None
