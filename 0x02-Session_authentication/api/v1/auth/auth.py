@@ -16,6 +16,9 @@ class Auth:
             return False
         if path == "/api/v1/status" and "/api/v1/status/" in excluded_paths:
             return False
+        if (path == "/api/v1/auth_session/login" and 
+            "/api/v1/auth_session/login/" in excluded_paths):
+            return False
         pa = ['/status', '/stats/', '/unauthorized/', '/forbidden/', '/users/']
         for i in excluded_paths:
             if '*' in i:

@@ -32,13 +32,18 @@ def auth_handler() -> None:
     if auth:
         exc_pth = ['/api/v1/status/',
                    '/api/v1/unauthorized/',
-                   '/api/v1/forbidden/']
+                   '/api/v1/forbidden/',
+                   '/api/v1/auth_session/login/']
         request.current_user = auth.current_user(request)
         if auth.require_auth(request.path, exc_pth):
-            if auth.authorization_header(request) is None:
+            print(auth.require_auth(request.path, exc_pth))
+            if (auth.authorization_header(request) is None and
+                auth.session_cookie(request) is None):
                 abort(401)
+                return None
             if auth.current_user(request) is None:
                 abort(403)
+
 
 
 @app.errorhandler(404)
