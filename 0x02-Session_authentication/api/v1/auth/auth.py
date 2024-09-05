@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """authorization handler class"""
+from os import getenv
 from flask import request
 from typing import List, TypeVar
 
@@ -36,3 +37,10 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """will be overload by basic_auth"""
         return None
+
+    def session_cookie(self, request=None):
+        """returns a cookie value from a request"""
+        if request is None:
+            return None
+        session_n = getenv('SESSION_NAME')
+        return request.cookies.get(f"{session_n}")
