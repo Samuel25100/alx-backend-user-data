@@ -17,6 +17,7 @@ def view_all_users() -> str:
     all_users = [user.to_json() for user in User.all()]
     return jsonify(all_users)
 
+
 @app_views.route('/users/me', methods=['GET'], strict_slashes=False)
 def view_auth_user() -> str:
     """retrieve the authenticated User object using basic_auth"""
