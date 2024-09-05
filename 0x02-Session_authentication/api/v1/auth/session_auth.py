@@ -29,8 +29,6 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """returns a User instance based on a cookie value"""
-        print("Dict ", self.user_id_by_session_id, "%%%%")
         key = str(self.session_cookie(request))
-        print("Key ", key, "%%%%")
         user_id = self.user_id_by_session_id.get(key)
         return User.get(user_id)
