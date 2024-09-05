@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Session authentication"""
 from api.v1.auth.auth import Auth
+from typing import TypeVar
+from models.user import User
 import uuid
 
 
@@ -24,3 +26,11 @@ class SessionAuth(Auth):
         if session_id is None or not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """returns a User instance based on a cookie value"""
+        print("Dict ", self.user_id_by_session_id, "%%%%")
+        key = str(self.session_cookie(request))
+        print("Key ", key, "%%%%")
+        user_id = self.user_id_by_session_id.get(key)
+        return User.get(user_id)
