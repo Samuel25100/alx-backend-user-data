@@ -38,12 +38,11 @@ def auth_handler() -> None:
         if auth.require_auth(request.path, exc_pth):
             print(auth.require_auth(request.path, exc_pth))
             if (auth.authorization_header(request) is None and
-                auth.session_cookie(request) is None):
+               auth.session_cookie(request) is None):
                 abort(401)
                 return None
             if auth.current_user(request) is None:
                 abort(403)
-
 
 
 @app.errorhandler(404)
