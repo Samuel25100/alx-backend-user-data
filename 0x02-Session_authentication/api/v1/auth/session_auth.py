@@ -9,9 +9,7 @@ import uuid
 class SessionAuth(Auth):
     """Session authentication class"""
 
-    def __init__(self):
-        """constructor"""
-        self.user_id_by_session_id = {}
+    user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
         """create session id for user"""
@@ -32,3 +30,15 @@ class SessionAuth(Auth):
         key = str(self.session_cookie(request))
         user_id = self.user_id_by_session_id.get(key)
         return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """deletes the user session or on logout"""
+        if request is None:
+            return False
+        session_id = self.session_cookie(request)
+        if not session_id:
+            return False
+        if self.user_id_by_session_id.get(session_id):
+            del self.user_id_by_session_id[session_id]
+            return True
+        return False

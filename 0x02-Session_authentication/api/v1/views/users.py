@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Users views
 """
+from os import getenv
 from typing import TypeVar
 from api.v1.views import app_views
 from api.v1.auth.basic_auth import BasicAuth
@@ -22,8 +23,13 @@ def view_all_users() -> str:
 def view_auth_user() -> str:
     """retrieve the authenticated User object using basic_auth"""
     current_u = None
+    session_nm = getenv('SESSION_NAME')
     for user in User.all():
         if request.current_user == user:
+            current_u = user.to_json()
+            break
+        session_id = request.cookies.get(session_nm)
+        if session_id == user.id:
             current_u = user.to_json()
             break
     return jsonify(current_u)
