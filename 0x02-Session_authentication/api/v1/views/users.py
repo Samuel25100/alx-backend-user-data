@@ -28,10 +28,6 @@ def view_auth_user() -> str:
         if request.current_user == user:
             current_u = user.to_json()
             break
-        session_id = request.cookies.get(session_nm)
-        if session_id == user.id:
-            current_u = user.to_json()
-            break
     return jsonify(current_u)
 
 
