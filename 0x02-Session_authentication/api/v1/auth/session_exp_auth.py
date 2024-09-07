@@ -34,7 +34,6 @@ class SessionExpAuth(SessionAuth):
             return None
         dur = self.user_id_by_session_id['created_at']
         dur += datetime.timedelta(seconds=self.session_duration)
-        print(f"###{dur}###")
         now = datetime.datetime.now()
         if dur < now:
             return None
