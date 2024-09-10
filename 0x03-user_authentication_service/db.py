@@ -42,10 +42,24 @@ class DB:
     def find_user_by(self, **kwargs):
         """find and user using given attribute value"""
         session = self._session
-        if 'email' not in kwargs or len(kwargs) != 1:
+        attribute = ['email', 'id', 'hashed_password', 'session_id']
+        inp = list(kwargs.keys())
+        result = all(i in attribute for i in inp)
+        if result is False or len(kwargs) != 1:
             raise InvalidRequestError
-        email = kwargs['email']
-        user = session.query(User).filter_by(email=email).first()
+        user = session.query(User).filter_by(**kwargs).first()
         if user is None:
             raise NoResultFound
         return user
+
+    def update_user(self, id, **kwargs):
+        """update a specific user attribute value"""
+        try:
+            user = self.find_user_by(id=id)
+            if user is None:
+                return None
+            for key, val in kwargs.items():
+                setattr(user, key, val)
+            self._session.commit()
+        except Exception:
+            raise ValueError
