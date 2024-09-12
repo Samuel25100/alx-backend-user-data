@@ -5,6 +5,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def _hash_password(password):
     """hash the password from user db"""
     pass_by = password.encode('utf-8')
@@ -25,8 +26,8 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
-                nuser = self._db.add_user(email=email,
-                                         hashed_password=hashed_password)
-                return nuser
+            nuser = self._db.add_user(email=email,
+                                      hashed_password=hashed_password)
+            return nuser
         if user:
             raise ValueError(f'User {email} already exists')
