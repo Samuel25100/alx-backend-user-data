@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """class DB"""
+from typing import TypeVar
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import User
-from user import Base
+from user import User, Base
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -28,14 +28,15 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password):
+    def add_user(self, email: str,
+                 hashed_password: str) -> TypeVar('User'):
         """add user to db"""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> TypeVar('User'):
         """find and user using given attribute value"""
         session = self._session
         attribute = ['email', 'id', 'hashed_password', 'session_id']
@@ -48,7 +49,7 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, id, **kwargs):
+    def update_user(self, id: int, **kwargs) -> None:
         """update a specific user attribute value"""
         try:
             user = self.find_user_by(id=id)
