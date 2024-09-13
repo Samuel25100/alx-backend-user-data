@@ -39,13 +39,13 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """find and user using given attribute value"""
-        session = self._session
         attribute = ['email', 'id', 'hashed_password', 'session_id']
         inp = list(kwargs.keys())
         result = all(i in attribute for i in inp)
         if result is False or len(kwargs) != 1:
             raise InvalidRequestError
-        user = session.query(User).filter_by(**kwargs).first()
+        use = self._session.query(User).all()
+        user = self._session.query(User).filter_by(**kwargs).first()
         if user is None:
             raise NoResultFound
         return user
