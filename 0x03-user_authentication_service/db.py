@@ -55,9 +55,10 @@ class DB:
         try:
             user = self.find_user_by(id=user_id)
             if user is None:
-                return None
+                raise ValueError
             for key, val in kwargs.items():
                 setattr(user, key, val)
             self._session.commit()
+            return None
         except Exception:
             raise ValueError
