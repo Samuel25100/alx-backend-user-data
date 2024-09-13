@@ -50,10 +50,10 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """update a specific user attribute value"""
         try:
-            user = self.find_user_by(id=id)
+            user = self.find_user_by(id=user_id)
             if user is None:
                 return None
             for key, val in kwargs.items():
