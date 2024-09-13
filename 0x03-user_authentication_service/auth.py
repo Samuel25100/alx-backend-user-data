@@ -14,7 +14,8 @@ def _hash_password(password: str) -> str:
 
 def _generate_uuid(self) -> str:
         """generate uuid"""
-        return str(uuid.uuid4())
+        ret = str(uuid.uuid4())
+        return ret
 
 
 class Auth:
