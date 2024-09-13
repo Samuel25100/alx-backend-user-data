@@ -31,7 +31,7 @@ class Auth:
             nuser = self._db.add_user(email, hashed_password)
             return nuser
 
-    def valid_login(self, email: str, password: str):
+    def valid_login(self, email: str, password: str) -> bool:
         """validate give email and password is correct"""
         try:
             user = self._db.find_user_by(email=email)
