@@ -6,7 +6,7 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 
 
-def _hash_password(password):
+def _hash_password(password: str) -> str:
     """hash the password from user db"""
     pass_by = password.encode('utf-8')
     return bcrypt.hashpw(pass_by, bcrypt.gensalt())
@@ -20,7 +20,7 @@ class Auth:
         """constructor of Auth"""
         self._db = DB()
 
-    def register_user(self, email, password):
+    def register_user(self, email: str, password: str) -> User:
         """register a new user"""
         hashed_password = _hash_password(password)
         try:
