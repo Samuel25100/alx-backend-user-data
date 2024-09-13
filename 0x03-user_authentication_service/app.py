@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 AUTH = Auth()
 
+
 @app.route("/")
 def home():
     """return a string"""
