@@ -31,8 +31,8 @@ def login():
     """handle login confirmation"""
     email = request.form.get('email')
     pwd = request.form.get('password')
-    if AUTH.valid_login(email, pwd):
-        se_id = AUTH.create_session(email)
+    if Auth.valid_login(email, pwd):
+        se_id = Auth.create_session(email)
         resp = make_response(jsonify({"email": email, "message": "logged in"}))
         resp.set_cookie('session_id', se_id)
         return resp
