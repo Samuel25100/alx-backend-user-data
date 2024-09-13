@@ -52,13 +52,10 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """update a specific user attribute value"""
-        try:
-            user = self.find_user_by(id=user_id)
-            if user is None:
+        user = self.find_user_by(id=user_id)
+        for key, val in kwargs.items():
+            if not hasattr(user, key) or key == 'id':
                 raise ValueError
-            for key, val in kwargs.items():
-                setattr(user, key, val)
-            self._session.commit()
-            return None
-        except Exception:
-            raise ValueError
+            setattr(user, key, val)
+        self._session.commit()
+        return None
