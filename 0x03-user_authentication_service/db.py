@@ -37,7 +37,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs) -> TypeVar('User'):
+    def find_user_by(self, **kwargs) -> User:
         """find and user using given attribute value"""
         session = self._session
         attribute = ['email', 'id', 'hashed_password', 'session_id']
