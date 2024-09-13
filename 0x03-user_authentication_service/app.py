@@ -48,7 +48,7 @@ def logout():
     try:
         user = AUTH.get_user_from_session_id(session_id)
         destroy_session(user.id)
-        redirect(url_for(''))
+        redirect(url_for('home'))
     except Exception:
         return abort(403)
 
