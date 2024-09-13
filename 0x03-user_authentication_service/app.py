@@ -5,6 +5,7 @@ from auth import Auth
 
 app = Flask(__name__)
 
+AUTH = Auth()
 
 @app.route("/")
 def home():
@@ -17,9 +18,8 @@ def regs_user():
     """register users for POST request"""
     email = request.form.get('email')
     pwd = request.form.get('password')
-    auth = Auth()
     try:
-        user = auth.register_user(email, pwd)
+        user = AUTH.register_user(email, pwd)
         if user:
             return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
@@ -31,8 +31,8 @@ def login():
     """handle login confirmation"""
     email = request.form.get('email')
     pwd = request.form.get('password')
-    if Auth.valid_login(email, pwd):
-        se_id = Auth.create_session(email)
+    if AUTH.valid_login(email=email, password=pwd):
+        se_id = AUTH.create_session(email)
         resp = make_response(jsonify({"email": email, "message": "logged in"}))
         resp.set_cookie('session_id', se_id)
         return resp
