@@ -39,7 +39,7 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """find and user using given attribute value"""
-        attribute = ['email', 'id', 'hashed_password', 'session_id']
+        attribute = ['email', 'id', 'hashed_password', 'session_id', 'reset_token']
         inp = list(kwargs.keys())
         result = all(i in attribute for i in inp)
         if result is False or len(kwargs) != 1:
