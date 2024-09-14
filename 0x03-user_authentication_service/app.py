@@ -65,7 +65,7 @@ def profile():
 @app.route("/reset_password", methods=['POST'])
 def reset_password():
     """handle the reset password token"""
-    email = request.cookies.get('email')
+    email = request.form.get('email')
     if not email:
         return abort(403)
     try:
