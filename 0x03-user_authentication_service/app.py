@@ -51,6 +51,7 @@ def logout():
     AUTH.destroy_session(user.id)
     return redirect('/')
 
+
 @app.route("/profile")
 def profile():
     """handle route for profile of user"""
