@@ -72,3 +72,12 @@ class Auth:
         user = self._db.find_user_by(id=user_id)
         user.session_id = None
         return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """reset the token for user by email"""
+        try:
+            user = self._db.find_user_by(email=email)
+            user.reset_token = _generate_uuid()
+            return user.reset_token
+        except Exception:
+            raise ValueError
